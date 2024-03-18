@@ -6,22 +6,22 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 16:53:18 by we                #+#    #+#             */
-/*   Updated: 2024/03/18 16:55:32 by we               ###   ########.fr       */
+/*   Updated: 2024/03/18 17:04:49 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-void	free_words(char *word[])
+void	free_words(char *words[])
 {
-	if (word)
+	if (words)
 	{
-		while (*word)
+		while (*words)
 		{
-			free(*word);
-			*word = NULL;
-			word++;
+			free(*words);
+			*words = NULL;
+			words++;
 		}
-		free(word);
+		free(words);
 	}
 }

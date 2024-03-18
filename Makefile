@@ -8,7 +8,8 @@ SRC_DIR = src
 OBJ_DIR = obj
 
 # Files
-SOURCE = $(SRC_DIR)/validation.c $(SRC_DIR)/read.c $(SRC_DIR)/command.c
+SOURCE = $(SRC_DIR)/validation.c $(SRC_DIR)/read.c $(SRC_DIR)/command.c\
+		 $(SRC_DIR)/utils.c
 OBJECTS = $(SOURCE:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 INCLUDE = pipex.h
 LIBFT = $(LIBFT_DIR)/libft.a
