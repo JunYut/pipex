@@ -21,6 +21,12 @@
 
 # **Prototype**
 ### `./pipex file1 cmd1 cmd2 file2`
+### `./pipex infile "ls -l" "wc -l" outfile`
+
+## **Step 0: Input parsing**
+Since the commands with `command line options` or a `flags`, it is important to parse the string before proceeding:
+>  Use `ft_split` with the `space character` as a delimter so the command and its options can be separated and stored for later operations
+
 ## **Step 1: Input validation**
 1. check if `argc` is `5`
 2. use `access` to check if `argv[1]` is a present file
