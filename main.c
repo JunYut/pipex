@@ -6,16 +6,15 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:13:47 by we                #+#    #+#             */
-/*   Updated: 2024/03/15 15:44:56 by we               ###   ########.fr       */
+/*   Updated: 2024/03/18 12:24:33 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <fcntl.h>
-#include "libft/c_libft.h"
+#include "pipex.h"
 
 int main(int argc, char **argv)
 {
+	validation(argc, argv);
 	// parsing arguments
 
 	// open file & read file
@@ -24,7 +23,7 @@ int main(int argc, char **argv)
 
 	// create child process
 
-	// 
+	//
 
 	// clean up
 }

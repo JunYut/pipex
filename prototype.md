@@ -70,6 +70,22 @@ At this step, all `file descriptors(fd)` and `dynamic allocated memory` shall be
 ##	2. Why `< file1.txt cat` instead of `file1.txt > cat` ?
 This is the result:
 ```
-	$> file1.txt > wc -w
-	bash: ./file1.txt: Permission denied
+$> file1.txt > wc -w
+bash: ./file1.txt: Permission denied
+```
+
+## 3. Shell built-in commands
+ > `type <command>`
+
+By using the `type` command, we can see if the `command` is a `shell built-in`, a file in the `PATH`, an `alias`, a `function`, or a `keyword`
+
+```
+$> type cd
+cd is a shell builtin
+
+$> type ls
+ls is aliased to `ls --color=auto'
+
+$> type python
+python is /usr/bin/python
 ```
