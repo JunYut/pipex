@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:13:47 by we                #+#    #+#             */
-/*   Updated: 2024/03/18 17:03:59 by we               ###   ########.fr       */
+/*   Updated: 2024/03/18 17:38:05 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int main(int argc, char **argv)
 	// parse arguments
 	cmd1 = ft_split(argv[2], ' ');
 	cmd2 = ft_split(argv[3], ' ');
+	prepend_bin(cmd1);
+	prepend_bin(cmd2);
 
 	// input validation
 	validation(argc, argv[1], *cmd1, *cmd2);
