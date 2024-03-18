@@ -9,7 +9,7 @@ OBJ_DIR = obj
 
 # Files
 SOURCE = $(SRC_DIR)/validation.c $(SRC_DIR)/read.c $(SRC_DIR)/command.c
-OBJECTS = $(SOURCE:$(SRC_DIR)/.c=$(OBJ_DIR)/.o)
+OBJECTS = $(SOURCE:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 INCLUDE = pipex.h
 LIBFT = $(LIBFT_DIR)/libft.a
 LIBPIPEX = libpipex.a
@@ -19,13 +19,13 @@ NAME = pipex
 all: $(NAME)
 
 $(NAME): $(LIBPIPEX) main.c
-	$(CC) $(CFLAGS) -o $(NAME) main.c -L. -lpipex
+	$(CC) $(CFLAGS) -o $(NAME) main.c -L. -L$(LIBFT_DIR) -lpipex -lft
 
-$(LIBPIPEX): $(OBJECTS)
+$(LIBPIPEX): $(LIBFT) $(OBJECTS)
 	ar rcs $(LIBPIPEX) $(OBJECTS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(LIBFT) $(INCLUDE)
-	$(CC) $(CFLAGS) -c -I.$(INCLUDE) $< -o $@
+	$(CC) $(CFLAGS) -c -I.$(INCLUDE) -I$(LIBFT_DIR) $< -o $@
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)
