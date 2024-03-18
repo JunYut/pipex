@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:38:27 by we                #+#    #+#             */
-/*   Updated: 2024/03/18 15:47:26 by we               ###   ########.fr       */
+/*   Updated: 2024/03/18 16:17:49 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	valid_file(char *path)
 {
 	if (access(path, F_OK) == -1 || access(path, R_OK) == -1)
 	{
-		strerror(errno);
+		perror(path);
 		exit(1);
 	}
 }
@@ -40,7 +40,7 @@ static void	valid_cmd(char *cmd)
 {
 	if (access(cmd, F_OK) == -1 || access(cmd, X_OK) == -1)
 	{
-		strerror(errno);
+		perror(cmd);
 		exit(1);
 	}
 }
