@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/17 11:19:38 by we                #+#    #+#             */
-/*   Updated: 2024/03/18 16:59:30 by we               ###   ########.fr       */
+/*   Created: 2024/03/18 16:53:18 by we                #+#    #+#             */
+/*   Updated: 2024/03/18 16:55:32 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "../pipex.h"
 
-#include <unistd.h>
-#include <fcntl.h>
-#include <string.h>
-#include <errno.h>
-#include <stdlib.h>
-#include "libft/c_libft.h"
-
-void	validation(int argc, char *file1, char *cmd1, char *cmd2);
-void	free_words(char *words[]);
-
-#endif
+void	free_words(char *word[])
+{
+	if (word)
+	{
+		while (*word)
+		{
+			free(*word);
+			*word = NULL;
+			word++;
+		}
+		free(word);
+	}
+}

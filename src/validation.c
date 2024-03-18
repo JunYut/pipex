@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:38:27 by we                #+#    #+#             */
-/*   Updated: 2024/03/18 16:37:28 by we               ###   ########.fr       */
+/*   Updated: 2024/03/18 16:59:47 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 static void	valid_file(char *path);
 static void	valid_cmd(char *cmd);
 
-void	validation(int argc, char *argv[])
+void	validation(int argc, char *file1, char *cmd1, char *cmd2)
 {
 	if (argc != 5)
 	{
 		ft_putstr_fd("Error: invalid number of arguments\n", 2);
 		exit(1);
 	}
-	valid_file(argv[1]);
-	valid_cmd(argv[2]);
-	valid_cmd(argv[3]);
+	valid_file(file1);
+	valid_cmd(cmd1);
+	valid_cmd(cmd2);
 }
 
 static void	valid_file(char *path)
