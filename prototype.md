@@ -24,8 +24,7 @@
 ## **Step 1: Input validation**
 1. check if `argc` is `5`
 2. use `access` to check if `argv[1]` is a present file
-3. check if `argv[2]` & `argv[3]` are valid shell commands using the `which` command
-4. if `argv[4]` does not exist, create it
+3. check if `argv[2]` & `argv[3]` are valid shell commands using the `access` command
 
 ## **Step 2: Reading contents of `file1`**
 Note: these contents will be passed as arguments for `cmd1` and they might not be valid
@@ -39,7 +38,7 @@ Note: these contents will be passed as arguments for `cmd1` and they might not b
 1. from `fd[0](output end of the pipe)`, read and store the output of `cmd1` as a string
 2. use `fork` to create another child process and `wait` to wait for the child process to finsish
 3. in the child process, run `cmd2` with the output string of `cmd1` as its arguments
-4. use `dup2` to redirect `stdout` to `file2`
+4. use `dup2` to redirect `stdout` to `file2`, if `file2` does not exist, create it
 
 ## **Step 5: Clean up**
 At this step, all `file descriptors(fd)` and `dynamic allocated memory` shall be released and freed.
