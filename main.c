@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:13:47 by we                #+#    #+#             */
-/*   Updated: 2024/03/18 12:24:33 by we               ###   ########.fr       */
+/*   Updated: 2024/03/18 12:53:05 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int main(int argc, char **argv)
 {
+	// input validation
 	validation(argc, argv);
-	// parsing arguments
 
 	// open file & read file
 

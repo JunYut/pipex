@@ -4,18 +4,28 @@ CFLAGS = -Wall -Wextra -Werror
 
 # Directories
 LIBFT_DIR = libft
+SRC_DIR = src
+OBJ_DIR = obj
 
 # Files
-SOURCE = main.c
-OBJECTS = $(SOURCE:.c=.o)
+SOURCE = $(SRC_DIR)/validation.c $(SRC_DIR)/read.c $(SRC_DIR)/command.c
+OBJECTS = $(SOURCE:$(SRC_DIR)/.c=$(OBJ_DIR)/.o)
+INCLUDE = pipex.h
 LIBFT = $(LIBFT_DIR)/libft.a
+LIBPIPEX = libpipex.a
 NAME = pipex
 
 # Rules & Recipes
 all: $(NAME)
 
-$(NAME): $(OBJECTS) $(LIBFT)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS) $(LIBFT)
+$(NAME): $(LIBPIPEX) main.c
+	$(CC) $(CFLAGS) -o $(NAME) main.c -L. -lpipex
+
+$(LIBPIPEX): $(OBJECTS)
+	ar rcs $(LIBPIPEX) $(OBJECTS)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(LIBFT) $(INCLUDE)
+	$(CC) $(CFLAGS) -c -I.$(INCLUDE) $< -o $@
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)
