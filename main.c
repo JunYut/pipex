@@ -6,16 +6,17 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:13:47 by we                #+#    #+#             */
-/*   Updated: 2024/03/19 08:58:17 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/03/19 09:20:47 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int main(int argc, char **argv)
+int main(int argc, char **argv, char **envp)
 {
 	t_pipex	*var;
 
+	var = (t_pipex *)malloc(sizeof(t_pipex));
 	// parse arguments
 	var->cmd1 = ft_split(argv[2], ' ');
 	var->cmd2 = ft_split(argv[3], ' ');
