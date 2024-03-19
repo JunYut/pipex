@@ -26,9 +26,11 @@ $(LIBPIPEX): $(LIBFT) $(OBJECTS)
 	ar rcs $(LIBPIPEX) $(OBJECTS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(LIBFT) $(INCLUDE)
+	mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c -I.$(INCLUDE) -I$(LIBFT_DIR) $< -o $@
 
 $(LIBFT):
+	mkdir -p $(LIBFT_DIR)/$(OBJ_DIR)
 	make -C $(LIBFT_DIR)
 
 clean:
