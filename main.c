@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:13:47 by we                #+#    #+#             */
-/*   Updated: 2024/03/18 18:49:21 by we               ###   ########.fr       */
+/*   Updated: 2024/03/19 08:58:17 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,47 +14,43 @@
 
 int main(int argc, char **argv)
 {
-	int		p_fd[2];
-	int		fd;
-	char	**cmd1;
-	char	**cmd2;
-	char	*f_buffer[1024];
+	t_pipex	*var;
 
 	// parse arguments
-	cmd1 = ft_split(argv[2], ' ');
-	cmd2 = ft_split(argv[3], ' ');
-	prepend_bin(cmd1);
-	prepend_bin(cmd2);
+	var->cmd1 = ft_split(argv[2], ' ');
+	var->cmd2 = ft_split(argv[3], ' ');
+	prepend_bin(var->cmd1);
+	prepend_bin(var->cmd2);
 
 	// input validation
-	validation(argc, argv[1], *cmd1, *cmd2);
+	validation(argc, argv[1], *(var->cmd1), *(var->cmd2));
 
 	// open file & read file
-	fd = open(argv[1], O_RDONLY);
-	read(fd, f_buffer, 1024);
-	close(fd);
+	var->fd[2] = open(argv[1], O_RDONLY);
+	read(var->fd[2], var->f_buffer, 1024);
+	close(var->fd[2]);
 
 	// create pipe
-	pipe(p_fd);
+	pipe(var->fd);
 
 	// create child process
 	if (fork() == 0)
 	{
 		printf("child process\n");	// debug
-		close(p_fd[0]);
-		dup2(p_fd[1], 1);
-		execve((*cmd1)++, cmd1, NULL);
+		close(var->fd[0]);
+		dup2(var->fd[1], 1);
+		execve((*(var->cmd1))++, var->cmd1, NULL);
 	}
 	else
 	{
 		wait(NULL);
 		printf("parent process\n");	// debug
-		close(p_fd[1]);
-		fd = open(argv[4], O_CREAT | O_WRONLY);
+		close(var->fd[1]);
+		var->fd[2] = open(argv[4], O_CREAT | O_WRONLY);
 		if (fork() == 0)
 		{
-			dup2(fd, 1);
-			execve((*cmd2)++, cmd2, NULL);
+			dup2(var->fd[2], 1);
+			execve((*(var->cmd2))++, var->cmd2, NULL);
 		}
 		else
 			wait(NULL);
@@ -62,7 +58,7 @@ int main(int argc, char **argv)
 
 	// clean up
 	printf("clean up\n");	// debug
-	close(fd);
-	free_words(cmd1);
-	free_words(cmd2);
+	close(var->fd[2]);
+	free_words((var->cmd1));
+	free_words((var->cmd2));
 }
