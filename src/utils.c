@@ -3,23 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 16:53:18 by we                #+#    #+#             */
-/*   Updated: 2024/03/18 17:32:42 by we               ###   ########.fr       */
+/*   Updated: 2024/03/20 08:45:22 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
-
-void	prepend_bin(char **cmd)
-{
-	char	*tmp;
-
-	tmp = ft_strjoin("/bin/", *cmd);
-	free(*cmd);
-	*cmd = tmp;
-}
 
 void	free_words(char *words[])
 {
