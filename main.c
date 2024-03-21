@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:13:47 by we                #+#    #+#             */
-/*   Updated: 2024/03/21 11:31:01 by we               ###   ########.fr       */
+/*   Updated: 2024/03/21 12:36:25 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,15 @@ int main(int argc, char **argv, char **envp)
 
 	// parse arguments
 	parser(var, argv, envp);
-	for (int i = 0; var->path1[i]; i++)
-		printf("%s\n", var->path1[i]);
-	printf("\n");
-	for (int i = 0; var->path2[i]; i++)
-		printf("%s\n", var->path2[i]);
-	printf("\n");
 
 	// input validation
 	validation(argc, argv[1], var);
 	for (int i = 0; var->cmd1[i]; i++)
-		printf("%s\n", var->cmd1[i]);
+		printf("%s ", var->cmd1[i]);
 	printf("\n");
 	for (int i = 0; var->cmd2[i]; i++)
-		printf("%s\n", var->cmd2[i]);
+		printf("%s ", var->cmd2[i]);
+	printf("\n");
 
 	// // open file & read file
 	// var->fd[2] = open(argv[1], O_RDONLY);
