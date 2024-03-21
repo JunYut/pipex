@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:13:47 by we                #+#    #+#             */
-/*   Updated: 2024/03/19 09:20:47 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/03/21 10:17:28 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,10 @@ int main(int argc, char **argv, char **envp)
 
 	var = (t_pipex *)malloc(sizeof(t_pipex));
 	// parse arguments
-	var->cmd1 = ft_split(argv[2], ' ');
-	var->cmd2 = ft_split(argv[3], ' ');
-	prepend_bin(var->cmd1);
-	prepend_bin(var->cmd2);
+	parser(var, argv, envp);
 
 	// input validation
-	validation(argc, argv[1], *(var->cmd1), *(var->cmd2));
+	validation(argc, argv[1], var->path1, var->path2);
 
 	// open file & read file
 	var->fd[2] = open(argv[1], O_RDONLY);
@@ -60,6 +57,5 @@ int main(int argc, char **argv, char **envp)
 	// clean up
 	printf("clean up\n");	// debug
 	close(var->fd[2]);
-	free_words((var->cmd1));
-	free_words((var->cmd2));
+	clean_up(var);
 }

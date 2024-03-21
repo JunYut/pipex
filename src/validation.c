@@ -6,28 +6,31 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:38:27 by we                #+#    #+#             */
-/*   Updated: 2024/03/18 16:59:47 by we               ###   ########.fr       */
+/*   Updated: 2024/03/21 10:20:31 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-static void	valid_file(char *path);
-static void	valid_cmd(char *cmd);
-
-void	validation(int argc, char *file1, char *cmd1, char *cmd2)
+void	validation(int argc, char *file1, char **path1, char **path2)
 {
+	int	i;
+
 	if (argc != 5)
 	{
 		ft_putstr_fd("Error: invalid number of arguments\n", 2);
 		exit(1);
 	}
 	valid_file(file1);
-	valid_cmd(cmd1);
-	valid_cmd(cmd2);
+	i = -1;
+	while (path1[++i])
+		valid_cmd(path1[i]);
+	i = -1;
+	while (path2[++i])
+		valid_cmd(path2[i]);
 }
 
-static void	valid_file(char *path)
+void	valid_file(char *path)
 {
 	if (access(path, F_OK) == -1 || access(path, R_OK) == -1)
 	{
@@ -36,7 +39,7 @@ static void	valid_file(char *path)
 	}
 }
 
-static void	valid_cmd(char *cmd)
+void	valid_cmd(char *cmd)
 {
 	if (access(cmd, F_OK) == -1 || access(cmd, X_OK) == -1)
 	{
