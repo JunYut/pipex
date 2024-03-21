@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:19:38 by we                #+#    #+#             */
-/*   Updated: 2024/03/21 10:21:22 by we               ###   ########.fr       */
+/*   Updated: 2024/03/21 11:08:01 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,11 @@ typedef struct s_pipex
 void	parser(t_pipex *var, char **argv, char *envp[]);
 char	**path_parser(char *envp[], char *cmd);
 void	prepend_cmd(char **path_list, char *cmd);
-void	validation(int argc, char *file1, char **path1, char **path2);
-void	valid_file(char *path);
-void	valid_cmd(char *cmd);
+void	validation(int argc, char *file1, t_pipex *var);
+void	valid_file(char *file, t_pipex *var);
+char	*valid_path(char **path, t_pipex *var);
 void	clean_up(t_pipex *var);
 void	free_words(char *words[]);
+void	*c_malloc(size_t size);
 
 #endif

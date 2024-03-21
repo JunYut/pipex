@@ -6,44 +6,46 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:38:27 by we                #+#    #+#             */
-/*   Updated: 2024/03/21 10:20:31 by we               ###   ########.fr       */
+/*   Updated: 2024/03/21 11:30:51 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-void	validation(int argc, char *file1, char **path1, char **path2)
+void	validation(int argc, char *file1, t_pipex *var)
 {
-	int	i;
-
 	if (argc != 5)
 	{
 		ft_putstr_fd("Error: invalid number of arguments\n", 2);
+		clean_up(var);
 		exit(1);
 	}
-	valid_file(file1);
-	i = -1;
-	while (path1[++i])
-		valid_cmd(path1[i]);
-	i = -1;
-	while (path2[++i])
-		valid_cmd(path2[i]);
+	valid_file(file1, var);
+	free(var->cmd1[0]);
+	var->cmd1[0] = valid_path(var->path1, var);
+	free(var->cmd2[0]);
+	var->cmd2[0] = valid_path(var->path2, var);
 }
 
-void	valid_file(char *path)
+void	valid_file(char *file, t_pipex *var)
 {
-	if (access(path, F_OK) == -1 || access(path, R_OK) == -1)
+	if (access(file, F_OK) == -1 || access(file, R_OK) == -1)
 	{
-		perror(path);
+		perror(file);
+		clean_up(var);
 		exit(1);
 	}
 }
 
-void	valid_cmd(char *cmd)
+char	*valid_path(char **path, t_pipex *var)
 {
-	if (access(cmd, F_OK) == -1 || access(cmd, X_OK) == -1)
-	{
-		perror(cmd);
-		exit(1);
-	}
+	int	i;
+
+	i = -1;
+	while (path[++i])
+		if (access(path[i], F_OK) == 0 && access(path[i], X_OK) == 0)
+			return (ft_strdup(path[i]));
+	ft_putstr_fd("Error: command not found\n", 2);
+	clean_up(var);
+	exit(1);
 }
