@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 08:42:57 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/03/27 11:40:27 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/03/27 13:24:51 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	parser(t_pipex *var, char **argv, char *envp[])
 {
-	var->cmd1 = ft_split(argv[2], ' ');
-	var->cmd2 = ft_split(argv[3], ' ');
-	var->path1 = path_parser(envp, *(var->cmd1));
-	var->path2 = path_parser(envp, *(var->cmd2));
+	var->args1 = ft_split(argv[2], ' ');
+	var->args2 = ft_split(argv[3], ' ');
+	var->path1 = path_parser(envp, *(var->args1));
+	var->path2 = path_parser(envp, *(var->args2));
 }
 
 char	**path_parser(char *envp[], char *cmd)
@@ -64,11 +64,11 @@ void	prepend_cmd(char **path_list, char *cmd)
 // 	parser(var, argv, envp);
 // 	i = -1;
 // 	while (var->path1[++i])                               `
-// 		printf("cmd1: %s\n", var->path1[i]);
+// 		printf("args1: %s\n", var->path1[i]);
 // 	printf("\n");
 // 	i = -1;
 // 	while (var->path2[++i])
-// 		printf("cmd2: %s\n", var->path2[i]);
+// 		printf("args2: %s\n", var->path2[i]);
 
 // 	(void)argc;
 // 	(void)argv;

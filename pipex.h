@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:19:38 by we                #+#    #+#             */
-/*   Updated: 2024/03/27 11:28:38 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/03/27 13:25:21 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@
 typedef struct s_pipex
 {
 	int		fd[3];
-	char	**cmd1;
-	char	**cmd2;
+	char	*cmd1;
+	char	*cmd2;
+	char	**args1;
+	char	**args2;
 	char	**path1;
 	char	**path2;
 	char	*f_buffer[1024];
