@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:13:47 by we                #+#    #+#             */
-/*   Updated: 2024/03/22 13:25:00 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/03/27 11:39:10 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,18 @@ int main(int argc, char **argv, char **envp)
 
 	// input validation
 	validation(argc, argv[1], var);
-	for (int i = 0; var->cmd1[i]; i++)
-		printf("%s ", var->cmd1[i]);
+	// for (int i = 0; var->cmd1[i]; i++)
+	// 	printf("%s ", var->cmd1[i]);
+	// printf("\n");
+	// for (int i = 0; var->cmd2[i]; i++)
+	// 	printf("%s ", var->cmd2[i]);
+	// printf("\n");
+
+	for (int i = 0; var->path1[i]; i++)
+		printf("%s\n", var->path1[i]);
 	printf("\n");
-	for (int i = 0; var->cmd2[i]; i++)
-		printf("%s ", var->cmd2[i]);
+	for (int i = 0; var->path2[i]; i++)
+		printf("%s\n", var->path2[i]);
 	printf("\n");
 
 	// // open file & read file
