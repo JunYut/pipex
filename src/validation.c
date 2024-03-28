@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:38:27 by we                #+#    #+#             */
-/*   Updated: 2024/03/21 11:30:51 by we               ###   ########.fr       */
+/*   Updated: 2024/03/28 15:59:41 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	validation(int argc, char *file1, t_pipex *var)
 		exit(1);
 	}
 	valid_file(file1, var);
-	free(var->cmd1[0]);
-	var->cmd1[0] = valid_path(var->path1, var);
-	free(var->cmd2[0]);
-	var->cmd2[0] = valid_path(var->path2, var);
+	free(var->path1[0]);
+	var->path1[0] = valid_path(var->path1, var);
+	free(var->path2[0]);
+	var->path2[0] = valid_path(var->path2, var);
 }
 
 void	valid_file(char *file, t_pipex *var)

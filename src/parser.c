@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 08:42:57 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/03/27 11:40:27 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/03/28 15:28:56 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,21 @@ char	**path_parser(char *envp[], char *cmd)
 	while (envp[++i] && ft_strncmp(envp[i], "PATH=", 5))
 		;
 	path_list = ft_split(envp[i], ':');
-	trim_path(path_list);
 	prepend_cmd(path_list, cmd);
+	path_list[0] = trim_path(path_list[0], "PATH=");
 	return (path_list);
 }
 
-void	trim_path(char **path_list)
+char	*trim_path(char *cmd, char *path)
 {
 	char	*tmp;
+	size_t	path_len;
 
-	tmp = (char *)calloc(ft_strlen(path_list[0] + 5) + 1, 1);
-	ft_memmove(tmp, path_list[0] + 5, ft_strlen(path_list[0] + 5));
-	free(path_list[0]);
-	path_list[0] = tmp;
+	path_len = ft_strlen(path);
+	tmp = ft_calloc(ft_strlen(cmd) - path_len + 1, 1);
+	ft_memmove(tmp, cmd + path_len, ft_strlen(cmd) - path_len);
+	free(cmd);
+	return(tmp);
 }
 
 void	prepend_cmd(char **path_list, char *cmd)

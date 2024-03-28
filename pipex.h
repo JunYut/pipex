@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:19:38 by we                #+#    #+#             */
-/*   Updated: 2024/03/27 11:28:38 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/03/28 15:34:19 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,15 @@
 
 typedef struct s_pipex
 {
-	int		fd[3];
 	char	**cmd1;
 	char	**cmd2;
 	char	**path1;
 	char	**path2;
-	char	*f_buffer[1024];
 }	t_pipex;
 
 void	parser(t_pipex *var, char **argv, char *envp[]);
 char	**path_parser(char *envp[], char *cmd);
-void	trim_path(char **path_list);
+char	*trim_path(char *cmd, char *path);
 void	prepend_cmd(char **path_list, char *cmd);
 void	validation(int argc, char *file1, t_pipex *var);
 void	valid_file(char *file, t_pipex *var);

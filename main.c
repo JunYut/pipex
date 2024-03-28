@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
+/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:13:47 by we                #+#    #+#             */
-/*   Updated: 2024/03/27 11:39:10 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/03/28 16:00:30 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,21 @@ int main(int argc, char **argv, char **envp)
 
 	// input validation
 	validation(argc, argv[1], var);
-	// for (int i = 0; var->cmd1[i]; i++)
-	// 	printf("%s ", var->cmd1[i]);
-	// printf("\n");
-	// for (int i = 0; var->cmd2[i]; i++)
-	// 	printf("%s ", var->cmd2[i]);
-	// printf("\n");
-
 	for (int i = 0; var->path1[i]; i++)
 		printf("%s\n", var->path1[i]);
 	printf("\n");
 	for (int i = 0; var->path2[i]; i++)
 		printf("%s\n", var->path2[i]);
 	printf("\n");
+	for (int i = 0; var->cmd1[i]; i++)
+		printf("%s ", var->cmd1[i]);
+	printf("\n");
+	for (int i = 0; var->cmd2[i]; i++)
+		printf("%s ", var->cmd2[i]);
+	printf("\n");
 
+	execve(var->path1[0], var->cmd1, NULL);
+	execve(var->path2[0], var->cmd2, NULL);
 	// // open file & read file
 	// var->fd[2] = open(argv[1], O_RDONLY);
 	// read(var->fd[2], var->f_buffer, 1024);
