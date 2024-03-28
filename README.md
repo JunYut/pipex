@@ -99,21 +99,53 @@ There are a lot of variables stored in `envp` but only the `PATH` variable is ne
 2. use `access` to check if `argv[1]` is a present file
 3. check if `argv[2]` & `argv[3]` are valid shell commands using the `access` command
 
-## **Step 2: Open and redirect `file1` to `stdin`**
+## **Step 2: Open `file1` & redirect to `stdin`**
 Since most shell commands that take input can read from `stdin`, by using `dup2()` we can effectively links the `fd` obtained from `open()` to `stdin`.
 
-The first argument is `oldfd` and the second argument is `newfd`, which means the `oldfd` is now linked to `newfd`.
+## **Step 3: Create a `pipe1` for inter-process communication**
+`pipe` takes a an int array with 2 elements `int pipe1[2]` as its parameter. `pipe1[1]` will be the end that we can write input into, while`pipe1[0]` will be the end that we can read the output from. Paired with `dup2`, we are able to do some pretty fascinating read/write operations.
 
-## **Step 3: Fork a child process to run `cmd1`**
-1. use `wait` to halt the execution of the parent process until the child process finishes
-2. in the child process, use `dup2` to redirect `stdout` to `fd[1](input end of the pipe)`, thus the output of `cmd1` is written into `fd[1]`
-3. after the child process finished, the parent process continues its execution
+## **Step 4: Fork a child process to run `cmd1`**
+Something worth to note is that although `fork` creates a copy of the parent process, but the child process start its execution from the point where `fork` is called.
 
-## **Step 4: Fork another child process to run `cmd2`**
-1. from `fd[0](output end of the pipe)`, read and store the output of `cmd1` as a string
-2. use `fork` to create another child process and `wait` to wait for the child process to finsish
-3. in the child process, run `cmd2` with the output string of `cmd1` as its arguments
-4. use `dup2` to redirect `stdout` to `file2`, if `file2` does not exist, create it
+## **Step 4.1: Use `wait` to halt the execution of the parent process**
+This should halt the execution of the parent process until the child process finish its execution, thus concurrency is avoided.
 
-## **Step 5: Clean up**
-At this step, all `file descriptors(fd)` and `dynamic allocated memory` shall be released and freed.
+## **Step 4.2: Redirecting output of `cmd1` to the pipe's write end**
+In the child process, use `dup2` to redirect `stdout` to `pipe1[1](input end of the pipe)`, thus the output of `cmd1` is written into `pipe1[1]`
+
+## **Step 4.3: Call `execve` to execute `cmd1`**
+If `cmd1` takes input from `stdin` the contents of `file1` that we have been redirected to `stdin` will be used here.
+
+After the child process finished, the parent process continues its execution.
+
+## **Step 5: Open `file2`**
+When calling `open`, `O_CREAT | O_WRONLY | O_TRUNC` should be passed as the second argument (`int __oflag`). The following is what each flag does:
+
+1. `O_CREAT`: This flag means that if the file does not exist, it will be created.
+
+2. `O_WRONLY`: This flag means that the file is opened for writing only.
+
+3. `O_TRUNC`: This flag means that if the file already exists and is a regular file, it will be truncated to length 0. If the file is successfully opened, any data that it previously contained is discarded.
+
+We will name the file descriptor of `file2` `fd2`.
+
+## **Step 6: Fork another child process to run `cmd2`**
+Use `wait` again to halt the execution of the parent process until the child process finish executing.
+
+## **Step 6.1: Redirect the pipe's output end to `stdin`**
+> `dup2(pipe1[0], 0)`
+
+Since `cmd2` might also take input from `stdin`, we will redirect the output end of pipe1(`pipe1[0]`) to `stdin`.
+
+## **Step 6.2: Redirect `stdout` to `fd2`**
+> `dups(1, fd2)`
+
+Since the project requires the final output of the program to be written into `file2`,
+`stdout` is redirected to `fd2`.
+
+## **Step 6.3: Execute `cmd2`**
+This will be the same as `Step 4.3`.
+
+## **Step 7: Clean up**
+At last, release and free all `file descriptors` and `allocated memory`.

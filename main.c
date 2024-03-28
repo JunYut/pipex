@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:13:47 by we                #+#    #+#             */
-/*   Updated: 2024/03/28 17:50:09 by we               ###   ########.fr       */
+/*   Updated: 2024/03/28 22:16:26 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int main(int argc, char **argv, char **envp)
 	// ft_printf("\n");
 	ft_printf("This is parent\n");	// debug
 
-	// open file
+	// open file1
 	fd[0] = open(argv[1], O_RDONLY);
 	dup2(fd[0], 0);
 
@@ -53,7 +53,7 @@ int main(int argc, char **argv, char **envp)
 	wait(NULL);
 	close(pipe1[1]);
 
-	// create pipe 2
+	// open file2
 	fd[1] = open(argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0644);
 
 	// execute cmd2
