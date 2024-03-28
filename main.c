@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:13:47 by we                #+#    #+#             */
-/*   Updated: 2024/03/28 16:04:36 by we               ###   ########.fr       */
+/*   Updated: 2024/03/28 17:50:09 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 int main(int argc, char **argv, char **envp)
 {
 	t_pipex	*var;
+	int		fd[2];
+	int		pipe1[2];
 
 	var = (t_pipex *)c_malloc(sizeof(t_pipex));
 
@@ -23,51 +25,47 @@ int main(int argc, char **argv, char **envp)
 
 	// input validation
 	validation(argc, argv[1], var);
-	for (int i = 0; var->path1[i]; i++)
-		printf("%s\n", var->path1[i]);
-	printf("\n");
-	for (int i = 0; var->path2[i]; i++)
-		printf("%s\n", var->path2[i]);
-	printf("\n");
-	for (int i = 0; var->cmd1[i]; i++)
-		printf("%s ", var->cmd1[i]);
-	printf("\n");
-	for (int i = 0; var->cmd2[i]; i++)
-		printf("%s ", var->cmd2[i]);
-	printf("\n");
+	// ft_printf("%s\n", var->path1[0]);
+	// for (int i = 0; var->cmd1[i]; i++)
+	// 	ft_printf("%s ", var->cmd1[i]);
+	// ft_printf("\n\n");
+	// ft_printf("%s\n", var->path2[0]);
+	// for (int i = 0; var->cmd2[i]; i++)
+	// 	ft_printf("%s ", var->cmd2[0]);
+	// ft_printf("\n");
+	ft_printf("This is parent\n");	// debug
 
-	execve(var->path1[0], var->cmd1, NULL);
-	execve(var->path2[0], var->cmd2, NULL);
-	// // open file & read file
-	// var->fd[2] = open(argv[1], O_RDONLY);
-	// read(var->fd[2], var->f_buffer, 1024);
-	// close(var->fd[2]);
+	// open file
+	fd[0] = open(argv[1], O_RDONLY);
+	dup2(fd[0], 0);
 
-	// // create pipe
-	// pipe(var->fd);
+	// create pipe 1
+	pipe(pipe1);
 
-	// // create child process
-	// if (fork() == 0)
-	// {
-	// 	close(var->fd[0]);
-	// 	dup2(var->fd[1], 1);
-	// 	execve((*(var->cmd1))++, var->cmd1, NULL);
-	// }
-	// else
-	// {
-	// 	wait(NULL);
-	// 	close(var->fd[1]);
-	// 	var->fd[2] = open(argv[4], O_CREAT | O_WRONLY);
-	// 	if (fork() == 0)
-	// 	{
-	// 		dup2(var->fd[2], 1);
-	// 		execve((*(var->cmd2))++, var->cmd2, NULL);
-	// 	}
-	// 	else
-	// 		wait(NULL);
-	// }
+	// execute cmd1
+	if (fork() == 0)
+	{
+		ft_printf("This is child 1\n");	// debug
+		close(pipe1[0]);
+		dup2(pipe1[1], 1);
+		execve(var->path1[0], var->cmd1, NULL);
+	}
+	wait(NULL);
+	close(pipe1[1]);
 
-	// // clean up
-	// close(var->fd[2]);
+	// create pipe 2
+	fd[1] = open(argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+
+	// execute cmd2
+	if (fork() == 0)
+	{
+		ft_printf("This is child 2\n");	// debug
+		dup2(pipe1[0], 0);
+		dup2(fd[1], 1);
+		execve(var->path2[0], var->cmd2, NULL);
+	}
+	wait(NULL);
+	close(fd[1]);
+	close(fd[0]);
 	clean_up(var);
 }

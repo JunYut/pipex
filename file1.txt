@@ -1,13 +1,1 @@
-#include <unistd.h>
-#include <stdio.h>
-
-int main() {
-	char *args[] = {"ls", "-a", NULL};
-	char *env[] = {NULL};
-
-	execve("/bin/ls", args, env);
-
-	// execve only returns if an error occurs
-	perror("execve");
-	return 1;
-}
+This is infile
