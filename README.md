@@ -100,7 +100,9 @@ There are a lot of variables stored in `envp` but only the `PATH` variable is ne
 3. check if `argv[2]` & `argv[3]` are valid shell commands using the `access` command
 
 ## **Step 2: Open and redirect `file1` to `stdin`**
-These contents will be passed as arguments for `cmd1` and they might not be valid
+Since most shell commands that take input can read from `stdin`, by using `dup2()` we can effectively links the `fd` obtained from `open()` to `stdin`.
+
+The first argument is `oldfd` and the second argument is `newfd`, which means the `oldfd` is now linked to `newfd`.
 
 ## **Step 3: Fork a child process to run `cmd1`**
 1. use `wait` to halt the execution of the parent process until the child process finishes
