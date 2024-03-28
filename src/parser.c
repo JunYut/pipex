@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 08:42:57 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/03/28 15:28:56 by we               ###   ########.fr       */
+/*   Updated: 2024/03/28 16:06:25 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ void	prepend_cmd(char **path_list, char *cmd)
 // 	parser(var, argv, envp);
 // 	i = -1;
 // 	while (var->path1[++i])                               `
-// 		printf("cmd1: %s\n", var->path1[i]);
+// 		printf("args1: %s\n", var->path1[i]);
 // 	printf("\n");
 // 	i = -1;
 // 	while (var->path2[++i])
-// 		printf("cmd2: %s\n", var->path2[i]);
+// 		printf("args2: %s\n", var->path2[i]);
 
 // 	(void)argc;
 // 	(void)argv;

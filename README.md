@@ -99,7 +99,7 @@ There are a lot of variables stored in `envp` but only the `PATH` variable is ne
 2. use `access` to check if `argv[1]` is a present file
 3. check if `argv[2]` & `argv[3]` are valid shell commands using the `access` command
 
-## **Step 2: Reading contents of `file1`**
+## **Step 2: Open and redirect `file1` to `stdin`**
 These contents will be passed as arguments for `cmd1` and they might not be valid
 
 ## **Step 3: Fork a child process to run `cmd1`**
