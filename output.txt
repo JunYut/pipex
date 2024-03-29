@@ -1,0 +1,62 @@
+1) < file1.txt cat | wc -l > file2.txt	: [PASS]
+9
+
+2) < file1.txt grep "test" | wc -w > file2.txt : [PASS]
+6
+
+3) < file1.txt ls | sort > file2.txt : [PASS]
+Makefile
+README.md
+file1.txt
+file2.txt
+libft
+libpipex.a
+main.c
+obj
+output.txt
+pipex
+pipex.h
+src
+
+4) < file1.txt cat | rev > file2.txt : [PASS]
+1enil si sihT
+rf 2 inil si sihT
+3enil
+4enil
+5enil
+6enil
+etacilpud
+etacilpud
+tset tset tset tset tset tset
+01 9 8 7 6 5 4 3 2 1
+
+5) < file1.txt head -n 5 | tail -n 3 > file2.txt : [PASS]
+line3
+line4
+line5
+
+6) < file1.txt sort |uniq > file2.txt : [PASS]
+1 2 3 4 5 6 7 8 9 10
+This is line1
+This is lini 2 fr
+duplicate
+line3
+line4
+line5
+line6
+test test test test test test
+
+7) < file1.txt tr -s ' ' '\n' | wc -w > file2.txt : [PASS]
+30
+
+8) < file1.txt cat | sed 's/test/TEST/g' > file2.txt : [PASS]
+This is line1
+This is lini 2 fr
+line3
+line4
+line5
+line6
+duplicate
+duplicate
+TEST TEST TEST TEST TEST TEST
+1 2 3 4 5 6 7 8 9 10
