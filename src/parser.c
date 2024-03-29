@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 08:42:57 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/03/29 11:52:36 by we               ###   ########.fr       */
+/*   Updated: 2024/03/29 17:46:21 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*trim_path(char *cmd, char *path)
 	tmp = ft_calloc(ft_strlen(cmd) - path_len + 1, 1);
 	ft_memmove(tmp, cmd + path_len, ft_strlen(cmd) - path_len);
 	c_free(cmd);
-	return(tmp);
+	return (tmp);
 }
 
 void	prepend_cmd(char **path_list, char *cmd)
