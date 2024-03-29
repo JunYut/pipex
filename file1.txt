@@ -1,1 +1,2 @@
-This is infile
+This is line 1
+This is lini 2 fr

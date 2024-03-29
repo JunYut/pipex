@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:13:47 by we                #+#    #+#             */
-/*   Updated: 2024/03/29 12:00:39 by we               ###   ########.fr       */
+/*   Updated: 2024/03/29 12:11:46 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,6 @@ int main(int argc, char **argv, char **envp)
 
 	// input validation
 	validation(argc, argv[1], var);
-	// ft_printf("%s\n", var->path1[0]);
-	// for (int i = 0; var->cmd1[i]; i++)
-	// 	ft_printf("%s ", var->cmd1[i]);
-	// ft_printf("\n\n");
-	// ft_printf("%s\n", var->path2[0]);
-	// for (int i = 0; var->cmd2[i]; i++)
-	// 	ft_printf("%s ", var->cmd2[0]);
-	// ft_printf("\n");
-	ft_printf("This is parent\n");	// debug
 
 	// open file1
 	fd[0] = open(argv[1], O_RDONLY);
@@ -45,7 +36,6 @@ int main(int argc, char **argv, char **envp)
 	// execute cmd1
 	if (fork() == 0)
 	{
-		ft_printf("This is child 1\n");	// debug
 		close(pipe1[0]);
 		dup2(pipe1[1], 1);
 		execve(var->path1[0], var->cmd1, NULL);
@@ -59,7 +49,6 @@ int main(int argc, char **argv, char **envp)
 	// execute cmd2
 	if (fork() == 0)
 	{
-		ft_printf("This is child 2\n");	// debug
 		dup2(pipe1[0], 0);
 		dup2(fd[1], 1);
 		execve(var->path2[0], var->cmd2, NULL);
