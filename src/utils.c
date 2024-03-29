@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 16:53:18 by we                #+#    #+#             */
-/*   Updated: 2024/03/21 11:30:41 by we               ###   ########.fr       */
+/*   Updated: 2024/03/29 12:00:22 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	clean_up(t_pipex *var)
 	free_words(var->cmd2);
 	free_words(var->path1);
 	free_words(var->path2);
-	free(var);
+	c_free(var);
 	var = NULL;
 }
 
@@ -31,23 +31,20 @@ void	free_words(char *words[])
 	{
 		while (*tmp)
 		{
-			free(*tmp);
+			c_free(*tmp);
 			*tmp = NULL;
 			tmp++;
 		}
-		free(words);
+		c_free(words);
 	}
 }
 
-void	*c_malloc(size_t size)
+void	c_free(void *ptr)
 {
-	void	*ptr;
-
-	ptr = malloc(size);
-	if (ptr == NULL)
+	if (ptr)
 	{
-		perror("Error: malloc");
-		exit(1);
+		free(ptr);
+		ptr = NULL;
 	}
-	return (ptr);
 }
+

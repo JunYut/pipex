@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:19:38 by we                #+#    #+#             */
-/*   Updated: 2024/03/28 16:04:21 by we               ###   ########.fr       */
+/*   Updated: 2024/03/29 12:00:46 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ void	valid_file(char *file, t_pipex *var);
 char	*valid_path(char **path, t_pipex *var);
 void	clean_up(t_pipex *var);
 void	free_words(char *words[]);
-void	*c_malloc(size_t size);
+void	c_free(void *ptr);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:38:27 by we                #+#    #+#             */
-/*   Updated: 2024/03/29 11:46:27 by we               ###   ########.fr       */
+/*   Updated: 2024/03/29 11:51:59 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*valid_path(char **path, t_pipex *var)
 	{
 		if (access(path[i], F_OK) == 0 && access(path[i], X_OK) == 0)
 		{
-			free(path[0]);
+			c_free(path[0]);
 			return (ft_strdup(path[i]));
 		}
 	}

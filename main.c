@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:13:47 by we                #+#    #+#             */
-/*   Updated: 2024/03/28 22:16:26 by we               ###   ########.fr       */
+/*   Updated: 2024/03/29 12:00:39 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int main(int argc, char **argv, char **envp)
 	int		fd[2];
 	int		pipe1[2];
 
-	var = (t_pipex *)c_malloc(sizeof(t_pipex));
+	var = (t_pipex *)ft_calloc(1, sizeof(t_pipex));
 
 	// parse arguments
 	parser(var, argv, envp);
