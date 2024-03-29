@@ -1,5 +1,5 @@
 #	 **How should the program behave ?**
-### `./pipex file1.txt cat wc -l file2.txt`
+### `./pipex file1.txt "cat" "wc -l" file2.txt`
  needs to behave like
 ### `< file1.txt cat | wc -l > file2.txt`
 
@@ -127,6 +127,19 @@ When calling `open`, `O_CREAT | O_WRONLY | O_TRUNC` should be passed as the seco
 2. `O_WRONLY`: This flag means that the file is opened for writing only.
 
 3. `O_TRUNC`: This flag means that if the file already exists and is a regular file, it will be truncated to length 0. If the file is successfully opened, any data that it previously contained is discarded.
+
+And the third argument will be `0644`. This is a file permission mode used when opening a file using `open`.
+
+Let's break down `0644`:
+
+1. The leading `0` indicates that the number is in octal format.
+2. The first digit, `0`, represents the special permissions. In this case, it is set to `0`, which means no special permissions are set.
+3. The second digit, `6`, represents the owner's permissions. `6` in octal corresponds to `110` in binary, which means the owner has read and write permissions.
+4. The third digit, `4`, represents the group's permissions. `4` in octal corresponds to `100` in binary, which means the group has read-only permissions.
+5. The fourth digit, `4`, represents the permissions for others (everyone else). `4` in octal corresponds to `100` in binary, which means others have read-only permissions
+
+
+So, in this case, `0644` sets the file permissions to read and write for the owner, and read-only for the group and others.
 
 We will name the file descriptor of `file2` `fd2`.
 
