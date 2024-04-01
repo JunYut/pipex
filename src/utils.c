@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 16:53:18 by we                #+#    #+#             */
-/*   Updated: 2024/04/01 16:41:24 by we               ###   ########.fr       */
+/*   Updated: 2024/04/01 17:54:05 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,28 @@ void	clean_up(t_pipex *var)
 		free_words(var->cmds[i]);
 		free_words(var->paths[i]);
 	}
+	free_pipes(var->pipes);
 	c_free(var->cmds);
 	c_free(var->paths);
 	c_free(var);
 	var = NULL;
+}
+
+void	free_pipes(int *pipes[])
+{
+	int	**tmp;
+
+	tmp = pipes;
+	if (tmp)
+	{
+		while (*tmp)
+		{
+			c_free(*tmp);
+			*tmp = NULL;
+			tmp++;
+		}
+		c_free(pipes);
+	}
 }
 
 void	free_words(char *words[])

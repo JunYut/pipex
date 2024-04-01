@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 11:19:38 by we                #+#    #+#             */
-/*   Updated: 2024/04/01 16:36:04 by we               ###   ########.fr       */
+/*   Updated: 2024/04/01 17:46:24 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ char	*valid_path(char **path, t_pipex *var);
 void	valid_file(char *file, t_pipex *var);
 void	valid_argc(int argc, t_pipex *var);
 void	clean_up(t_pipex *var);
+void	free_pipes(int *pipes[]);
 void	free_words(char *words[]);
 void	c_free(void *ptr);
 
