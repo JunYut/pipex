@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:13:47 by we                #+#    #+#             */
-/*   Updated: 2024/04/01 18:19:23 by we               ###   ########.fr       */
+/*   Updated: 2024/04/01 18:32:58 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ int main(int argc, char **argv, char **envp)
 	i = -1;
 	while (++i < var->count)
 	{
+		ft_printf("path: %s\n", var->paths[i][0]);	// debug
+		for (int j = 0; var->cmds[i][j]; j++)	// debug
+			ft_printf("%s ", var->cmds[i][j]);	// debug
+		ft_printf("\n");	// debug
 		// create pipe
 		if (i < var->count - 1)
 			pipe(var->pipes[i]);
@@ -45,7 +49,7 @@ int main(int argc, char **argv, char **envp)
 		{
 			if (i == 0)
 				dup2(var->pipes[i][1], 1);
-			else if (i == var->count - 1)
+			else if (i == var->count - 1)	// stuck here
 			{
 				dup2(var->pipes[i - 1][0], 0);
 				dup2(var->fd2, 1);
@@ -57,7 +61,7 @@ int main(int argc, char **argv, char **envp)
 			}
 			execve(var->paths[i][0], var->cmds[i], NULL);
 		}
-		// wait(NULL);
+		wait(NULL);
 	}
 	// create pipe 1
 	// pipe(pipe1);
