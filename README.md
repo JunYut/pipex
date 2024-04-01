@@ -162,3 +162,56 @@ This will be the same as `Step 4.3`.
 
 ## **Step 7: Clean up**
 At last, release and free all `file descriptors` and `allocated memory`.
+
+# **Bonus**
+# **Part 1: Handle multiple `pipes`**
+###  `./pipex file1 cmd1 cmd2 cmd3 ... cmdn file2`
+
+## **The difference between executing `2` commands and `n` commands**
+### **`2` commands `1` pipe**
+````
+open file1 [fd1]
+redirect fd1 to stdin
+pipe
+fork
+redirect stdout to write end (child process 1 & 2 shares the same pipe)
+execute cmd1
+
+open file2 [fd2]
+fork
+redirect read end to stdin (cmd2 will read from stdin)
+redirect stdout to fd2
+execute cmd2
+````
+
+### **`3` commands `2` pipes**
+````
+open file1 [fd1]
+open file2 [fd2]
+redirect fd1 to stdin
+
+pipe [pipe1]
+fork
+redirect stdout to pipe1[1]
+execute cmd1
+
+pipe [pipe2]
+fork
+redirect pipe1[0] to stdin
+redirect stdout to pipe2[1]
+execute cmd2
+
+fork
+redirect pipe2[0] to stdin
+redirect stdout to fd2
+execute cmd3
+````
+
+1. To execute `2` commands, `1` `pipe` is needed, to execute `3` commands, `2` `pipes` are needed, `4` commands ? `3` `pipes`. From this pattern, we can deduct that we will need `n - 1` `pipes`.
+2. We will also have to `fork` `n` times.
+3. The intermediate `pipes` should be taking input from the previous `pipe` and writing output to the next `pipe`.
+
+## **Step 0: Design the intermediate `pipes`**
+
+# **Part 2: Support `<<`and `>>` when the first parameter is `here_doc`**
+### `./pipex here_doc LIMITER cmd cmd1 file`
