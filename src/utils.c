@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 16:53:18 by we                #+#    #+#             */
-/*   Updated: 2024/03/29 17:46:34 by we               ###   ########.fr       */
+/*   Updated: 2024/04/01 16:41:24 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,16 @@
 
 void	clean_up(t_pipex *var)
 {
-	free_words(var->cmd1);
-	free_words(var->cmd2);
-	free_words(var->path1);
-	free_words(var->path2);
+	int	i;
+
+	i = -1;
+	while (++i < var->count)
+	{
+		free_words(var->cmds[i]);
+		free_words(var->paths[i]);
+	}
+	c_free(var->cmds);
+	c_free(var->paths);
 	c_free(var);
 	var = NULL;
 }

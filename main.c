@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:13:47 by we                #+#    #+#             */
-/*   Updated: 2024/03/29 17:45:36 by we               ###   ########.fr       */
+/*   Updated: 2024/04/01 16:36:11 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,17 @@
 int main(int argc, char **argv, char **envp)
 {
 	t_pipex	*var;
-	int		fd[2];
-	int		pipe1[2];
 
 	var = (t_pipex *)ft_calloc(1, sizeof(t_pipex));
+
+	// argc validation
+	valig_argc(argc, var);
 
 	// parse arguments
 	parser(var, argv, envp);
 
 	// input validation
-	validation(argc, argv[1], var);
+	validation(argv[1], var);
 
 	// open file1
 	fd[0] = open(argv[1], O_RDONLY);

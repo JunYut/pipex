@@ -6,23 +6,20 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:38:27 by we                #+#    #+#             */
-/*   Updated: 2024/03/29 11:51:59 by we               ###   ########.fr       */
+/*   Updated: 2024/04/01 16:39:14 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-void	validation(int argc, char *file1, t_pipex *var)
+void	validation(char *file1, t_pipex *var)
 {
-	if (argc != 5)
-	{
-		ft_putstr_fd("Error: invalid number of arguments\n", 2);
-		clean_up(var);
-		exit(1);
-	}
+	int	i;
+
 	valid_file(file1, var);
-	var->path1[0] = valid_path(var->path1, var);
-	var->path2[0] = valid_path(var->path2, var);
+	i = -1;
+	while (++i < var->count)
+		var->paths[0] = valid_path(var->paths[i], var);
 }
 
 void	valid_file(char *file, t_pipex *var)
@@ -51,4 +48,14 @@ char	*valid_path(char **path, t_pipex *var)
 	ft_putstr_fd("Error: command not found\n", 2);
 	clean_up(var);
 	exit(1);
+}
+
+void	valid_argc(int argc, t_pipex *var)
+{
+	if (argc < 5)
+	{
+		ft_putstr_fd("Error: invalid number of arguments\n", 2);
+		exit(1);
+	}
+	var->count = argc - 3;
 }
