@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:38:27 by we                #+#    #+#             */
-/*   Updated: 2024/04/01 16:39:14 by we               ###   ########.fr       */
+/*   Updated: 2024/04/01 17:23:18 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	validation(char *file1, t_pipex *var)
 	valid_file(file1, var);
 	i = -1;
 	while (++i < var->count)
-		var->paths[0] = valid_path(var->paths[i], var);
+		var->paths[i][0] = valid_path(var->paths[i], var);
 }
 
 void	valid_file(char *file, t_pipex *var)
