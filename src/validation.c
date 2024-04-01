@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:38:27 by we                #+#    #+#             */
-/*   Updated: 2024/04/01 17:23:18 by we               ###   ########.fr       */
+/*   Updated: 2024/04/01 17:53:01 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,17 @@ char	*valid_path(char **path, t_pipex *var)
 
 void	valid_argc(int argc, t_pipex *var)
 {
+	int	i;
+
 	if (argc < 5)
 	{
 		ft_putstr_fd("Error: invalid number of arguments\n", 2);
 		exit(1);
 	}
 	var->count = argc - 3;
+	var->pipes = (int **)ft_calloc(var->count, sizeof(int *));
+	i = -1;
+	while (++i < var->count - 1)
+		var->pipes[i] = (int *)ft_calloc(2, sizeof(int));
+	var->pipes[i] = NULL;
 }
