@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 08:42:57 by tjun-yu           #+#    #+#             */
-/*   Updated: 2024/04/01 16:35:59 by we               ###   ########.fr       */
+/*   Updated: 2024/04/01 17:48:55 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,16 @@ void	parser(t_pipex *var, char **argv, char *envp[])
 {
 	int	i;
 
-	var->cmds = (char ***)ft_calloc(var->count, sizeof(char **));
-	var->paths = (char ***)ft_calloc(var->count, sizeof(char **));
+	var->cmds = (char ***)ft_calloc(var->count + 1, sizeof(char **));
+	var->paths = (char ***)ft_calloc(var->count + 1, sizeof(char **));
 	i = -1;
 	while (++i < var->count)
 		var->cmds[i] = ft_split(argv[2 + i], ' ');
+	var->cmds[i] = NULL;
 	i = -1;
 	while (++i < var->count)
 		var->paths[i] = path_parser(envp, *(var->cmds[i]));
+	var->paths[i] = NULL;
 }
 
 char	**path_parser(char *envp[], char *cmd)
