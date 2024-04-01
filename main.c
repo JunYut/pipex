@@ -6,7 +6,7 @@
 /*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:13:47 by we                #+#    #+#             */
-/*   Updated: 2024/04/01 17:25:52 by we               ###   ########.fr       */
+/*   Updated: 2024/04/01 18:19:23 by we               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int main(int argc, char **argv, char **envp)
 {
 	t_pipex	*var;
+	int		i;
 
 	var = (t_pipex *)ft_calloc(1, sizeof(t_pipex));
 
@@ -27,32 +28,41 @@ int main(int argc, char **argv, char **envp)
 	// input validation
 	validation(argv[1], var);
 
-	ft_printf("cmd:\n");
-	for (int i = 0; i < var->count; i++)
-	{
-		for (int j = 0; var->cmds[i][j]; j++)
-		{
-			ft_printf("%s\n", var->cmds[i][j]);
-		}
-	}
-	ft_printf("\npath:\n");
-	for (int i = 0; i < var->count; i++)
-	{
-		for (int j = 0; var->paths[i][j]; j++)
-		{
-			ft_printf("%s\n", var->paths[i][j]);
-		}
-		ft_printf("\n");
-	}
+	// open file1 & file2
+	var->fd1 = open(argv[1], O_RDONLY);
+	var->fd2 = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	dup2(var->fd1, 0);
 
-	// // open file1
-	// fd[0] = open(argv[1], O_RDONLY);
-	// dup2(fd[0], 0);
+	i = -1;
+	while (++i < var->count)
+	{
+		// create pipe
+		if (i < var->count - 1)
+			pipe(var->pipes[i]);
 
-	// // create pipe 1
+		// execute cmd
+		if (fork() == 0)
+		{
+			if (i == 0)
+				dup2(var->pipes[i][1], 1);
+			else if (i == var->count - 1)
+			{
+				dup2(var->pipes[i - 1][0], 0);
+				dup2(var->fd2, 1);
+			}
+			else
+			{
+				dup2(var->pipes[i - 1][0], 0);
+				dup2(var->pipes[i][1], 1);
+			}
+			execve(var->paths[i][0], var->cmds[i], NULL);
+		}
+		// wait(NULL);
+	}
+	// create pipe 1
 	// pipe(pipe1);
 
-	// // execute cmd1
+	// execute cmd1
 	// if (fork() == 0)
 	// {
 	// 	close(pipe1[0]);
@@ -62,10 +72,7 @@ int main(int argc, char **argv, char **envp)
 	// wait(NULL);
 	// close(pipe1[1]);
 
-	// // open file2
-	// fd[1] = open(argv[4], O_CREAT | O_WRONLY | O_TRUNC, 0644);
-
-	// // execute cmd2
+	// execute cmd2
 	// if (fork() == 0)
 	// {
 	// 	dup2(pipe1[0], 0);
