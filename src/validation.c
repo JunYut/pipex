@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 15:38:27 by we                #+#    #+#             */
-/*   Updated: 2024/04/01 17:53:01 by we               ###   ########.fr       */
+/*   Updated: 2024/04/03 10:41:26 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	validation(char *file1, t_pipex *var)
 
 	valid_file(file1, var);
 	i = -1;
-	while (++i < var->count)
+	while (++i < var->cmd_count)
 		var->paths[i][0] = valid_path(var->paths[i], var);
 }
 
@@ -59,10 +59,10 @@ void	valid_argc(int argc, t_pipex *var)
 		ft_putstr_fd("Error: invalid number of arguments\n", 2);
 		exit(1);
 	}
-	var->count = argc - 3;
-	var->pipes = (int **)ft_calloc(var->count, sizeof(int *));
+	var->cmd_count = argc - 3;
+	var->pipes = (int **)ft_calloc(var->cmd_count, sizeof(int *));
 	i = -1;
-	while (++i < var->count - 1)
+	while (++i < var->cmd_count - 1)
 		var->pipes[i] = (int *)ft_calloc(2, sizeof(int));
 	var->pipes[i] = NULL;
 }

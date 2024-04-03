@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:13:47 by we                #+#    #+#             */
-/*   Updated: 2024/04/03 10:04:12 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/04/03 10:41:26 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int main(int argc, char **argv, char **envp)
 	dup2(var->fd1, 0);
 
 	i = -1;
-	while (++i < var->count)
+	while (++i < var->cmd_count)
 	{
 		// ft_printf("i: %d\n", i);	// debug
 		// ft_printf("path: %s\n", var->paths[i][0]);	// debug
@@ -43,7 +43,7 @@ int main(int argc, char **argv, char **envp)
 			// ft_printf("%s ", var->cmds[i][j]);	// debug
 		// ft_printf("\n");	// debug
 		// create pipe
-		if (i < var->count - 1)
+		if (i < var->cmd_count - 1)
 			pipe(var->pipes[i]);
 
 		// execute cmd
@@ -57,14 +57,14 @@ int main(int argc, char **argv, char **envp)
 			else
 			{
 				dup2(var->pipes[i - 1][0], 0);
-				if (i == var->count - 1)
+				if (i == var->cmd_count - 1)
 					dup2(var->fd2, 1);
 				else
 					dup2(var->pipes[i][1], 1);
 			}
 			execve(var->paths[i][0], var->cmds[i], NULL);
 		}
-		if (i < var->count - 1)
+		if (i < var->cmd_count - 1)
 			close(var->pipes[i][1]);
 		wait(NULL);
 		// // ft_printf("debug[%d]\n", i);	// debug

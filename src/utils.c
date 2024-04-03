@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 16:53:18 by we                #+#    #+#             */
-/*   Updated: 2024/04/03 09:43:18 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/04/03 10:41:26 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	clean_up(t_pipex *var)
 	close(var->fd1);
 	close(var->fd2);
 	i = -1;
-	while (++i < var->count)
+	while (++i < var->cmd_count)
 	{
 		free_words(var->cmds[i]);
 		free_words(var->paths[i]);
