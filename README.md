@@ -73,6 +73,9 @@ $> type python
 python is /usr/bin/python
 ```
 
+## 4. Closing the `write end` of the `pipe`
+When using `pipes` for inter-process communication, not closing the `write end` of a `pipe` in a `process` that only needs to read form the `pipe` can cause issues. For example, if a process is using `read()` to read from a pipe, `read()` will not return `0` (indicating end-of-file) until all write ends of the pipe have been closed. If a process doesn't close its write end of the pipe, `read()` in the reading process may hang waiting for more data, even if no more data will be written.
+
 # **Prototype**
 ### `./pipex file1 cmd1 cmd2 file2`
 ### `./pipex infile "ls -l" "wc -l" outfile`
