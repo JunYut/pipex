@@ -60,3 +60,87 @@ duplicate
 duplicate
 TEST TEST TEST TEST TEST TEST
 1 2 3 4 5 6 7 8 9 10
+
+9) < file1.txt sort | uniq | tr '[:upper:]' '[:lower:]' > file2.txt :[PASS]
+{
+1 2 3 4 5 6 7 8 9 10
+this is line1
+this is lini 2 fr
+duplicate
+line3
+line4
+line5
+line6
+test test test test test test
+
+}
+
+10) < file1.txt head -n 10 | sort | uniq > file2.txt : [PASS]
+{
+1 2 3 4 5 6 7 8 9 10
+This is line1
+This is lini 2 fr
+duplicate
+line3
+line4
+line5
+line6
+test test test test test test
+
+}
+
+11) < file1.txt sed 's/old/new/g' | tr '[:upper:]' '[:lower:]' | wc -l > file2.txt : [PASS]
+{
+      10
+
+}
+
+12) < file1.txt tr '[:upper:]' '[:lower:]' | sed 's/old/new/g' | wc -w > file2.txt : [PASS]
+{
+      30
+
+}
+
+13) < file1.txt wc -l | sort | uniq > file2.txt : [PASS]
+{
+       9
+
+}
+
+14) < file1.txt head -n 10 | sort | uniq | tr '[:upper:]' '[:lower:]' > file2.txt : [PASS]
+{
+1 2 3 4 5 6 7 8 9 10
+this is line1
+this is lini 2 fr
+duplicate
+line3
+line4
+line5
+line6
+test test test test test test
+
+}
+
+15) < file1.txt sed 's/old/new/g' | tr '[:upper:]' '[:lower:]' | wc -l | sort > file2.txt : [PASS]
+{
+      10
+
+}
+
+16) < file1.txt tail -n 5 | sed 's/old/new/g' | tr '[:upper:]' '[:lower:]' | wc -w > file2.txt : [PASS]
+{
+      19
+
+}
+
+20) < file1.txt wc -w | sort | uniq | tr '[:upper:]' '[:lower:]' > file2.txt : [PASS]
+{
+      30
+
+}
+
+21) < file1.txt sed 's/old/new/g' | tail -n 10 | sort -r | wc -l > file2.txt : [PASS]
+{
+      10
+
+}
