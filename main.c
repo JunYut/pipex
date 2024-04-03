@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: we <we@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:13:47 by we                #+#    #+#             */
-/*   Updated: 2024/04/01 18:32:58 by we               ###   ########.fr       */
+/*   Updated: 2024/04/03 08:46:46 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,11 @@ int main(int argc, char **argv, char **envp)
 		if (fork() == 0)
 		{
 			if (i == 0)
+			{
+				close(var->pipes[i][0]);
 				dup2(var->pipes[i][1], 1);
-			else if (i == var->count - 1)	// stuck here
+			}
+			else if (i == var->count - 1)
 			{
 				dup2(var->pipes[i - 1][0], 0);
 				dup2(var->fd2, 1);
@@ -62,6 +65,7 @@ int main(int argc, char **argv, char **envp)
 			execve(var->paths[i][0], var->cmds[i], NULL);
 		}
 		wait(NULL);
+		close(var->pipes[i][1]);
 	}
 	// create pipe 1
 	// pipe(pipe1);
