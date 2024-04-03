@@ -76,6 +76,21 @@ python is /usr/bin/python
 ## 4. Closing the `write end` of the `pipe`
 When using `pipes` for inter-process communication, not closing the `write end` of a `pipe` in a `process` that only needs to read form the `pipe` can cause issues. For example, if a process is using `read()` to read from a pipe, `read()` will not return `0` (indicating end-of-file) until all write ends of the pipe have been closed. If a process doesn't close its write end of the pipe, `read()` in the reading process may hang waiting for more data, even if no more data will be written.
 
+## 5. To check if there are any unclosed `fds`
+> `lsof -p [PID]`
+
+This command provides information about files that are opened by processes. Here's a breakdown of the columns:
+
+- `COMMAND`: The name of the command (process) that opened the file.
+- `PID`: The process ID.
+- `USER`: The user who owns the process.
+- `FD`: The file descriptor number. The letters 'r', 'w', 'u' indicate whether the file is opened for reading (r), writing (w), or read-write (u). A file descriptor is a non-negative integer that is used to access a file or other input/output resource. The numbers 0, 1, and 2 are reserved for the standard input, standard output, and standard error, respectively.
+- `TYPE`: The type of the file. REG indicates a regular file, DIR indicates a directory, CHR indicates a character special file, and PIPE indicates a pipe.
+- `DEVICE`: The device numbers (major,minor).
+- `SIZE/OFF`: The size of the file or the file offset in bytes.
+- `NODE`: The node number of a local file or the inode number of a network file.
+- `NAME`: The name of the path to the file or the name of the network file.
+
 # **Prototype**
 ### `./pipex file1 cmd1 cmd2 file2`
 ### `./pipex infile "ls -l" "wc -l" outfile`
