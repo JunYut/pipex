@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:13:47 by we                #+#    #+#             */
-/*   Updated: 2024/04/03 09:18:38 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/04/03 10:04:12 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ int main(int argc, char **argv, char **envp)
 			}
 			execve(var->paths[i][0], var->cmds[i], NULL);
 		}
-		wait(NULL);
-		// // ft_printf("debug[%d]\n", i);	// debug
 		if (i < var->count - 1)
 			close(var->pipes[i][1]);
+		wait(NULL);
+		// // ft_printf("debug[%d]\n", i);	// debug
 	}
 	// create pipe 1
 	// pipe(pipe1);
@@ -92,6 +92,6 @@ int main(int argc, char **argv, char **envp)
 	// wait(NULL);
 	// close(fd1);
 	// close(fd0);
-	pause();	// debug
+	// pause();	// debug
 	clean_up(var);
 }
