@@ -6,7 +6,7 @@
 /*   By: tjun-yu <tjun-yu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 17:13:47 by we                #+#    #+#             */
-/*   Updated: 2024/04/03 10:41:26 by tjun-yu          ###   ########.fr       */
+/*   Updated: 2024/04/03 12:57:35 by tjun-yu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int main(int argc, char **argv, char **envp)
 	t_pipex	*var;
 	int		i;
 
-	ft_printf("PID: %d\n", getpid());	// debug
 	var = (t_pipex *)ft_calloc(1, sizeof(t_pipex));
 
 	// argc validation
@@ -37,11 +36,6 @@ int main(int argc, char **argv, char **envp)
 	i = -1;
 	while (++i < var->cmd_count)
 	{
-		// ft_printf("i: %d\n", i);	// debug
-		// ft_printf("path: %s\n", var->paths[i][0]);	// debug
-		// for (int j = 0; var->cmds[i][j]; j++)	// debug
-			// ft_printf("%s ", var->cmds[i][j]);	// debug
-		// ft_printf("\n");	// debug
 		// create pipe
 		if (i < var->cmd_count - 1)
 			pipe(var->pipes[i]);
@@ -51,12 +45,12 @@ int main(int argc, char **argv, char **envp)
 		{
 			if (i == 0)
 			{
-				close(var->pipes[i][0]);
-				dup2(var->pipes[i][1], 1);
+				dup2(var->pipes[0][1], 1);
 			}
 			else
 			{
 				dup2(var->pipes[i - 1][0], 0);
+				close(var->pipes[i - 1][0]);
 				if (i == var->cmd_count - 1)
 					dup2(var->fd2, 1);
 				else
@@ -66,32 +60,10 @@ int main(int argc, char **argv, char **envp)
 		}
 		if (i < var->cmd_count - 1)
 			close(var->pipes[i][1]);
+		if (i > 0)
+			close(var->pipes[i - 1][0]);
 		wait(NULL);
-		// // ft_printf("debug[%d]\n", i);	// debug
 	}
-	// create pipe 1
-	// pipe(pipe1);
 
-	// execute cmd1
-	// if (fork() == 0)
-	// {
-	// 	close(pipe1[0]);
-	// 	dup2(pipe1[1], 1);
-	// 	execve(var->path1[0], var->cmd1, NULL);
-	// }
-	// wait(NULL);
-	// close(pipe1[1]);
-
-	// execute cmd2
-	// if (fork() == 0)
-	// {
-	// 	dup2(pipe1[0], 0);
-	// 	dup2(fd1, 1);
-	// 	execve(var->path2[0], var->cmd2, NULL);
-	// }
-	// wait(NULL);
-	// close(fd1);
-	// close(fd0);
-	// pause();	// debug
 	clean_up(var);
 }
