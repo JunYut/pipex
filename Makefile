@@ -37,7 +37,7 @@ clean:
 	make -C $(LIBFT_DIR) clean
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) $(LIBPIPEX)
 	make -C $(LIBFT_DIR) fclean
 
 re: fclean all
